@@ -76,10 +76,10 @@ function createId(title) {
         .replace(/\s/g, "-") // lowercase and replace all whitespace
         .replace(/^\d/, (d) => "a" + d);
 
+    const special_ids = ["team", "x2", "y2", "shot-type"];
     while (
         _.findIndex(getDetails(), { id: id }) !== -1 ||
-        id === "x2" ||
-        id === "y2"
+        _.findIndex(special_ids, id) !== -1
     ) {
         id += "0";
     }
