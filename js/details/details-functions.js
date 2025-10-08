@@ -16,8 +16,12 @@ export function setCustomSetup(setup) {
     dataStorage.set("customSetup", setup);
 }
 
-function existsDetail(id) {
-    return !d3.select(id).empty();
+function existsDetail(type) {
+    const detail = _.find(getDetails(), ["type", type]);
+    if (!detail) {
+        return false;
+    }
+    return !detail.hidden;
 }
 
 export function getDetailTitle(id) {
@@ -36,7 +40,7 @@ export function resetCustomSetupUploadFlag() {
 
 function getCurrentShotTypes() {
     let options = [];
-    if (existsDetail("#shot-type")) {
+    if (existsDetail("shot-type")) {
         d3.select("#shot-type-select")
             .selectAll("option")
             .each(function () {
@@ -57,7 +61,7 @@ function getCurrentShotTypes() {
 }
 
 function getTypeIndex(type) {
-    if (!existsDetail("#shot-type")) {
+    if (!existsDetail("shot-type")) {
         return 0;
     }
     return type ? _.findIndex(getCurrentShotTypes(), { value: type }) : 0;

@@ -33,14 +33,14 @@ function shotTypeLegend(id = "#shot-type-legend") {
     svg.selectAll("*").remove();
 
     // if shot-type not in the details
-    if (!existsDetail("#shot-type")) {
+    if (!existsDetail("shot-type")) {
         svg.attr("width", 0).attr("height", 0);
         return;
     }
 
     const typeOptions = getCurrentShotTypes();
 
-    typeOptions.forEach(function(value, i) {
+    typeOptions.forEach(function (value, i) {
         let data = {
             teamId: true,
             player: "",
@@ -75,7 +75,7 @@ function teamLegend(id = "#team-legend") {
     svg.selectAll("*").remove();
 
     // do not do anything if team widget isn't present
-    if (!existsDetail("#team")) {
+    if (!existsDetail("team")) {
         svg.attr("width", 0).attr("height", 0);
         return;
     }

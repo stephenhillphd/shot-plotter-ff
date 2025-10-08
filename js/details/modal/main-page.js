@@ -70,7 +70,7 @@ function createMainPage(id) {
         .text("Reset to Defaults")
         .on("click", () => {
             setCustomSetup(getDefaultSetup());
-            if (existsDetail("#shot-type")) {
+            if (existsDetail("shot-type")) {
                 let options = _.find(getDefaultSetup().details, {
                     type: "shot-type",
                     id: "shot-type",

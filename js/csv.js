@@ -141,7 +141,7 @@ function processCSV(uploadId, row, swapTeamColor) {
     }
 
     // add any new shot type options
-    if (existsDetail("#shot-type")) {
+    if (existsDetail("shot-type")) {
         const value = row[getDetailTitle("#shot-type")];
         const typeOptions = getCurrentShotTypes().map((x) => x.value);
         if (typeOptions.indexOf(value) === -1) {
@@ -156,7 +156,7 @@ function processCSV(uploadId, row, swapTeamColor) {
     let newSwapTeam = swapTeamColor;
 
     let teamColor;
-    if (existsDetail("#team")) {
+    if (existsDetail("team")) {
         const team = row[getDetailTitle("#team")];
         // add any new team name
         if (!team) {
