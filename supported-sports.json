@@ -1626,6 +1626,80 @@
             ]
         },
         {
+            "id": "flag-football",
+            "name": "Flag Football",
+            "units": "yards",
+            "specifications": "Flag Football Pass Routes",
+            "dimensions": "40 x 20",
+            "scoringArea": null,
+            "perimeter": "#transformations",
+            "appearance": {
+                "width": "400",
+                "height": "202.72",
+                "circleR": "4",
+                "polyR": "5.5",
+                "fontSize": "0.3rem",
+                "strokeWidth": "1px",
+                "heatMapScale": 0.625,
+                "heatMapLowOpacity": 0.1,
+                "heatMapHighOpacity": 0.4
+            },
+            "defaultDetails": [
+                {
+                    "type": "shot-number",
+                    "title": "#",
+                    "id": "shot-number",
+                    "noWidget": true
+                },
+                {
+                    "type": "radio",
+                    "title": "Half",
+                    "id": "half",
+                    "options": [
+                        { "value": "1st", "checked": true },
+                        { "value": "2nd" }
+                    ]
+                },
+                {
+                    "type": "radio",
+                    "title": "Down",
+                    "id": "down",
+                    "options": [
+                        { "value": "1st", "checked": true },
+                        { "value": "2nd" },
+                        { "value": "3rd" },
+                        { "value": "4th" }
+                    ]
+                },
+                {
+                    "type": "team",
+                    "title": "Team",
+                    "className": "team-select",
+                    "id": "team",
+                    "blueTeamName": "Home",
+                    "orangeTeamName": "Away",
+                    "checked": "blue-team-select"
+                },
+                {
+                    "type": "player",
+                    "title": "Receiver",
+                    "id": "player-input",
+                    "defaultValue": ""
+                },
+                {
+                    "type": "shot-type",
+                    "title": "Outcome",
+                    "id": "shot-type",
+                    "options": [
+                        { "value": "Complete", "selected": true },
+                        { "value": "Incomplete" }
+                    ]
+                },
+                { "type": "x", "title": "X", "id": "x", "noWidget": true },
+                { "type": "y", "title": "Y", "id": "y", "noWidget": true }
+            ]
+        },
+        {
             "id": "cfl",
             "name": "Canadian Football",
             "units": "yards",
