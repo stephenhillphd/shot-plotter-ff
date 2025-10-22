@@ -99,6 +99,7 @@ function createDetailsPanel(id = "#details") {
     select2Dropdown();
     d3.select(id).append("hr");
     customizeButton(id);
+    submitRunButton(id);
 }
 
 function customizeButton(id) {
@@ -139,6 +140,24 @@ function customizeButton(id) {
     d.append("div")
         .attr("class", "invalid-tooltip")
         .text("Details can only be customized when no shots are recorded.");
+}
+
+function submitRunButton(id) {
+    d3.select(id).append("hr");
+    let d = d3
+        .select(id)
+        .append("div")
+        .attr("class", "center");
+    d.append("button")
+        .attr("class", "form-control primary-btn")
+        .attr("id", "submit-run-btn")
+        .text("Submit Run")
+        .on("click", (e) => {
+            // Import at runtime to avoid circular dependency
+            import("../shots/shot.js").then((module) => {
+                module.createRunPlay();
+            });
+        });
 }
 
 export { setUpDetailsPanel, createDetailsPanel };

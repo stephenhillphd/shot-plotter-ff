@@ -152,6 +152,7 @@ export function heatMapFunctionality() {
             .attr("class", "form-check-input")
             .attr("type", "checkbox")
             .attr("id", "heat-map-toggle")
+            .property("checked", true)
             .on("change", () =>
                 d3.select("#heat-map-toggle").property("checked")
                     ? setOn()
@@ -162,6 +163,9 @@ export function heatMapFunctionality() {
             .attr("class", "form-check-label")
             .attr("for", "heat-map-toggle")
             .text("Heat Map View");
+
+        // Enable heat map by default
+        setOn();
     } else {
         setOff();
         d3.select("#heat-map-toggle-area").selectAll("*").remove();

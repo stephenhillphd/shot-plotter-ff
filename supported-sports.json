@@ -1672,6 +1672,25 @@
                     ]
                 },
                 {
+                    "type": "radio",
+                    "title": "Play Type",
+                    "id": "play-type",
+                    "options": [
+                        { "value": "Pass", "checked": true },
+                        { "value": "Run" }
+                    ]
+                },
+                {
+                    "type": "dropdown",
+                    "title": "Direction",
+                    "id": "direction",
+                    "options": [
+                        { "value": "Left", "selected": true },
+                        { "value": "Middle" },
+                        { "value": "Right" }
+                    ]
+                },
+                {
                     "type": "team",
                     "title": "Team",
                     "className": "team-select",

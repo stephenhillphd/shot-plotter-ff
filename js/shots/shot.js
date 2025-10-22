@@ -264,4 +264,127 @@ function createShotFromData(id, rowData, specialData, newRow = true) {
     }
 }
 
-export { setUpShots, createShotFromData };
+function createRunPlay() {
+    // Create a run play without requiring a click on the field
+    // Use a default coordinate (center of field) for runs
+    const defaultCoords = [cfgSportA.width / 2, cfgSportA.height / 2];
+
+    const columns = getHeaderRow();
+    const id = uuidv4();
+    let rowData = {};
+    let specialData = {
+        typeIndex: 0,
+        coords: defaultCoords,
+        coords2: null,
+        numberCol: _.findIndex(columns, { type: "shot-number" }) - 1,
+    };
+
+    for (let col of columns) {
+        switch (col.type) {
+            case "radio":
+                rowData[col.id] = d3
+                    .select(`input[name="${col.id}"]:checked`)
+                    .property("value");
+                break;
+            case "player":
+                specialData["player"] = d3
+                    .select("#" + col.id)
+                    .select("input")
+                    .property("value");
+            case "text-field":
+                rowData[col.id] = d3
+                    .select("#" + col.id)
+                    .select("input")
+                    .property("value");
+                break;
+            case "shot-type":
+                const type = d3
+                    .select("#" + col.id)
+                    .select("select")
+                    .property("value");
+                specialData["typeIndex"] = getTypeIndex(type);
+            case "dropdown":
+                rowData[col.id] = d3
+                    .select("#" + col.id)
+                    .select("select")
+                    .property("value");
+                break;
+            case "time":
+                rowData[col.id] = d3
+                    .select("#" + col.id)
+                    .select("input")
+                    .property("value");
+                break;
+            case "team":
+                specialData["teamColor"] = d3
+                    .select("input[name='team-bool']:checked")
+                    .property("value");
+                rowData[col.id] = d3
+                    .select(
+                        specialData["teamColor"] === "blueTeam"
+                            ? "#blue-team-name"
+                            : "#orange-team-name"
+                    )
+                    .property("value");
+                break;
+            case "shot-number":
+                rowData[col.id] = getNumRows() + 1;
+                break;
+            case "x":
+                let adjXFactor =
+                    !d3.select("#adj-coords-toggle").empty() &&
+                    !d3.select("#adj-coords-toggle").property("checked") &&
+                    (col.id == "xadj" || col.id == "x2adj")
+                        ? -1
+                        : 1;
+                if (col.id === "x2" || col.id === "x2adj") {
+                    rowData[col.id] = "";
+                } else {
+                    rowData[col.id] = (
+                        adjXFactor *
+                        (specialData["coords"][0] - cfgSportA.width / 2)
+                    ).toFixed(2);
+                }
+                break;
+            case "y":
+                let adjYFactor =
+                    !d3.select("#adj-coords-toggle").empty() &&
+                    !d3.select("#adj-coords-toggle").property("checked") &&
+                    (col.id == "yadj" || col.id == "y2adj")
+                        ? -1
+                        : 1;
+                if (col.id === "y2" || col.id === "y2adj") {
+                    rowData[col.id] = "";
+                } else {
+                    rowData[col.id] = (
+                        -1 *
+                        adjYFactor *
+                        (specialData["coords"][1] - cfgSportA.height / 2)
+                    ).toFixed(2);
+                }
+                break;
+            case "distance-calc":
+                if (cfgSportGoalCoords) {
+                    function distance([x1, y1], [x2, y2]) {
+                        return Math.sqrt(
+                            Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)
+                        );
+                    }
+                    rowData[col.id] = Math.min(
+                        ..._.map(cfgSportGoalCoords, (g) =>
+                            distance(g, specialData["coords"])
+                        )
+                    ).toFixed(2);
+                } else {
+                    rowData[col.id] = "";
+                }
+                break;
+            default:
+                continue;
+        }
+    }
+
+    createShotFromData(id, rowData, specialData);
+}
+
+export { setUpShots, createShotFromData, createRunPlay };
