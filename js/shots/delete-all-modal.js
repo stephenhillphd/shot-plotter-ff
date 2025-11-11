@@ -34,7 +34,7 @@ function setUpDeleteAllModal(id) {
         .attr("class", "grey-btn")
         .text("Reset All Data")
         .on("click", () => {
-            dataStorage.flush();
+            dataStorage.clear();
             window.location.reload();
         });
 }
