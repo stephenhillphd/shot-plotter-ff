@@ -1701,7 +1701,7 @@
                 },
                 {
                     "type": "player",
-                    "title": "Receiver",
+                    "title": "Receiver/Rusher",
                     "id": "player-input",
                     "defaultValue": ""
                 },
@@ -1712,6 +1712,17 @@
                     "options": [
                         { "value": "Complete", "selected": true },
                         { "value": "Incomplete" }
+                    ]
+                },
+                {
+                    "type": "dropdown",
+                    "title": "Field Zone",
+                    "id": "field-zone",
+                    "options": [
+                        { "value": "Own GL to Own 20", "selected": true },
+                        { "value": "Own 20 to 40" },
+                        { "value": "40 to Opp 20" },
+                        { "value": "Opp 20 to Opp GL" }
                     ]
                 },
                 { "type": "x", "title": "X", "id": "x", "noWidget": true },

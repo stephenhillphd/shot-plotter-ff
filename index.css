@@ -102,6 +102,13 @@ ul {
   margin-bottom: 1rem;
   flex-grow: 1; }
 
+/* Smaller font for longer labels */
+.detail-module label {
+  font-size: 0.95rem; }
+
+#player-input label {
+  font-size: 0.8rem; }
+
 select {
   width: 100%; }
 
@@ -460,6 +467,77 @@ div.tooltip {
   background: #aaaaaa;
   border-radius: 0.5rem;
   pointer-events: none; }
+
+/* Table toggle button - hidden by default, shown on tablets */
+#table-toggle-container {
+  display: none;
+}
+
+#shot-table {
+  transition: all 0.3s ease;
+}
+
+/* iPad and tablet landscape optimization */
+@media (min-width: 768px) {
+  .main {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem; }
+
+  .shot-info {
+    width: 350px;
+    min-width: 350px;
+    max-width: 350px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    height: fit-content;
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto; }
+
+  #playing-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+
+  #table-toggle-container {
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem; }
+
+  .shot-table {
+    margin-top: 0;
+    width: 100%; }
+
+  /* Reduce body margins for more space */
+  body {
+    margin: 0.5rem; }
+
+  /* Make header more compact on tablets */
+  .header {
+    margin-bottom: 0.5rem; }
+
+  .header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem; }
+
+  .medium-text {
+    font-size: 0.75em; }
+}
+
+/* Further optimize for larger tablets and iPad Pro landscape */
+@media (min-width: 1024px) {
+  .shot-info {
+    width: 380px;
+    min-width: 380px;
+    max-width: 380px; }
+
+  body {
+    margin: 1rem; }
+}
 
 @media (max-width: 768px) {
   .main {

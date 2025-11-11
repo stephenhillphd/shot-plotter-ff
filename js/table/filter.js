@@ -18,6 +18,7 @@ import {
     toggleClearFiltersIcon,
 } from "./table.js";
 import { toggleDownloadText } from "../csv.js";
+import { updateRunsSummary } from "../runs-summary.js";
 
 export function createFilterRow(details) {
     let filterRow = d3.select("#shot-table").select("thead").select("#filters");
@@ -63,6 +64,14 @@ export function createFilterRow(details) {
                 break;
             case "in-out":
                 dropdownFilter(c, ["In", "Out"]);
+                break;
+            case "field-zone":
+                dropdownFilter(c, [
+                    "Own GL to Own 20",
+                    "Own 20 to 40",
+                    "40 to Opp 20",
+                    "Opp 20 to Opp GL"
+                ]);
                 break;
             case "player":
             case "text-field":
@@ -277,6 +286,7 @@ function afterFiltersUpdate() {
     createPage(1, getEndRow());
     dotsVisibility();
     heatMap();
+    updateRunsSummary();
 }
 
 function getFilters() {

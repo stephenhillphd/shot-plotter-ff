@@ -28,6 +28,35 @@ function setUpTable() {
         setNumFilteredRows(0);
     }
 
+    // Add table collapse/expand toggle button for tablet/desktop
+    const tableContainer = d3.select("#shot-table");
+    const toggleContainer = d3.select("body")
+        .insert("div", "#shot-table")
+        .attr("id", "table-toggle-container")
+        .attr("class", "center")
+        .style("margin-top", "1rem");
+
+    toggleContainer
+        .append("button")
+        .attr("id", "table-toggle-btn")
+        .attr("class", "grey-btn")
+        .style("padding", "0.5rem 1rem")
+        .style("cursor", "pointer")
+        .text("Hide Table ▲")
+        .on("click", () => {
+            const table = d3.select("#shot-table");
+            const btn = d3.select("#table-toggle-btn");
+            const isHidden = table.style("display") === "none";
+
+            if (isHidden) {
+                table.style("display", "table");
+                btn.text("Hide Table ▲");
+            } else {
+                table.style("display", "none");
+                btn.text("Show Table ▼");
+            }
+        });
+
     const thead = d3.select("#shot-table").append("thead");
 
     thead.append("tr").attr("id", "column-names");

@@ -90,6 +90,10 @@ function createDetailsPanel(id = "#details") {
                 break;
             case "dropdown":
                 createDropdown(rowId, data);
+                // Add Submit Run button after Direction dropdown
+                if (data.id === "direction") {
+                    addSubmitRunButton(id);
+                }
                 break;
             case "time":
                 createTimeWidget(rowId, data);
@@ -99,7 +103,6 @@ function createDetailsPanel(id = "#details") {
     select2Dropdown();
     d3.select(id).append("hr");
     customizeButton(id);
-    submitRunButton(id);
 }
 
 function customizeButton(id) {
@@ -142,21 +145,28 @@ function customizeButton(id) {
         .text("Details can only be customized when no shots are recorded.");
 }
 
-function submitRunButton(id) {
+function addSubmitRunButton(id) {
+    // Only show submit run button if play-type field exists
+    const { details } = getCustomSetup();
+    const hasPlayType = _.some(details, { id: "play-type" });
+
+    if (!hasPlayType) {
+        return;
+    }
+
     d3.select(id).append("hr");
     let d = d3
         .select(id)
         .append("div")
-        .attr("class", "center");
+        .attr("class", "center")
+        .style("margin", "0.5rem 0");
     d.append("button")
         .attr("class", "form-control primary-btn")
         .attr("id", "submit-run-btn")
         .text("Submit Run")
         .on("click", (e) => {
-            // Import at runtime to avoid circular dependency
-            import("../shots/shot.js").then((module) => {
-                module.createRunPlay();
-            });
+            // Trigger custom event that shot.js will listen for
+            window.dispatchEvent(new CustomEvent('submitRun'));
         });
 }
 

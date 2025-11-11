@@ -173,21 +173,26 @@ export function heatMapFunctionality() {
 }
 
 export function heatMap() {
+    const toggle = d3.select("#heat-map-toggle");
     if (
         !getCustomSetup().heatMapEnable ||
-        !d3.select("#heat-map-toggle").property("checked")
+        toggle.empty() ||
+        !toggle.property("checked")
     ) {
         // do not generate heat map if feature not enabled
         return;
     }
     d3.select("#heat-map").selectAll("*").remove();
 
-    // compute the density data
-    const data = _.map(getFilteredRows(), (r) => ({
-        team: r.specialData.teamColor,
-        x: r.specialData.coords[0],
-        y: r.specialData.coords[1],
-    }));
+    // compute the density data, excluding runs
+    const data = _.map(
+        _.filter(getFilteredRows(), (r) => r.rowData["play-type"] !== "Run"),
+        (r) => ({
+            team: r.specialData.teamColor,
+            x: r.specialData.coords[0],
+            y: r.specialData.coords[1],
+        })
+    );
 
     function colorFunc(colorName) {
         const lowOpacity = cfgSportA.heatMapLowOpacity;

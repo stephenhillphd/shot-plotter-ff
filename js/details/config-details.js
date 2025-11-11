@@ -6,6 +6,6 @@ const cfgDetails = {
 const cfgOtherSetup = {
     rowsPerPage: 10,
     widgetsPerRow: 2,
-    heatMapEnable: false,
+    heatMapEnable: true,
 };
 export { cfgDetails, cfgOtherSetup };

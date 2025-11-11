@@ -37,6 +37,11 @@ function setUpShots() {
     }
     dataStorage.set("firstPoint", null);
 
+    // Listen for submit run event
+    window.addEventListener('submitRun', () => {
+        createRunPlay();
+    });
+
     d3.select("#playing-area")
         .select(perimeterId)
         .on("click", (e) => {
@@ -262,11 +267,23 @@ function createShotFromData(id, rowData, specialData, newRow = true) {
             updateTableFooter();
         }
     }
+
+    // Update runs summary
+    import("../runs-summary.js").then((module) => {
+        module.updateRunsSummary();
+    });
 }
 
 function createRunPlay() {
     // Create a run play without requiring a click on the field
     // Use a default coordinate (center of field) for runs
+
+    // Ensure play-type is set to "Run"
+    const playTypeRadio = d3.select('input[name="play-type"][value="Run"]');
+    if (!playTypeRadio.empty()) {
+        playTypeRadio.property("checked", true);
+    }
+
     const defaultCoords = [cfgSportA.width / 2, cfgSportA.height / 2];
 
     const columns = getHeaderRow();

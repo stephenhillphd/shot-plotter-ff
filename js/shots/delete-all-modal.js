@@ -1,4 +1,5 @@
 import { clearTable } from "../table/table-functions.js";
+import { dataStorage } from "../../setup.js";
 
 function setUpDeleteAllModal(id) {
     let m = d3
@@ -14,7 +15,7 @@ function setUpDeleteAllModal(id) {
     let h = m.append("div").attr("class", "modal-header");
     h.append("h5")
         .attr("class", "modal-title")
-        .text("Delete All Events");
+        .text("Reset All Data");
     h.append("button")
         .attr("type", "button")
         .attr("class", "btn-close")
@@ -24,17 +25,17 @@ function setUpDeleteAllModal(id) {
     let mb = m
         .append("div")
         .attr("class", "modal-body")
-        .text("Are you sure? This will delete all recorded events.");
+        .text("Are you sure? This will delete all recorded events and reset all settings to their original state. This action cannot be undone.");
 
     m.append("div")
         .attr("class", "modal-footer")
         .append("button")
         .attr("type", "button")
         .attr("class", "grey-btn")
-        .text("Delete All")
+        .text("Reset All Data")
         .on("click", () => {
-            clearTable();
-            $(id).modal("hide"); // default js doesn't work for some reason
+            dataStorage.flush();
+            window.location.reload();
         });
 }
 

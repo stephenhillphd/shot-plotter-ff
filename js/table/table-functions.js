@@ -1,5 +1,6 @@
 import { updateTableFooter } from "./table.js";
 import { dataStorage } from "../../setup.js";
+import { updateRunsSummary } from "../runs-summary.js";
 
 function addRow(rowData) {
     dataStorage.push("rows", rowData);
@@ -93,6 +94,7 @@ function clearTable() {
     dots.select("#selected").selectAll("*").remove();
 
     d3.select("#heat-map").selectAll("*").remove();
+    updateRunsSummary();
 }
 
 export {

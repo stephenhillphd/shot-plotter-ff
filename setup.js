@@ -9,6 +9,7 @@ import { select2Dropdown } from "./js/details/widgets/widgets-special.js";
 import { cfgOtherSetup } from "./js/details/config-details.js";
 import { customCardSetup } from "./js/custom-setups/card-setup.js";
 import { customConfigSetup } from "./js/custom-setups/config-setup.js";
+import { setUpRunsSummary } from "./js/runs-summary.js";
 
 export let sport;
 export let dataStorage;
@@ -66,6 +67,7 @@ export function setup(s) {
         setUpShots();
         setUpCSVDownloadUpload();
         setUpLegend();
+        setUpRunsSummary();
 
         d3.select("h1")
             .attr("href", "./")

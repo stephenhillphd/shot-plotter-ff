@@ -20,6 +20,7 @@ import { heatMap } from "../toggles.js";
 import { dotSizeHandler } from "../shots/dot.js";
 import { cfgAppearance } from "../config-appearance.js";
 import { cfgSportA } from "../../setup.js";
+import { updateRunsSummary } from "../runs-summary.js";
 
 function createNewRow(id, rowData, specialData) {
     const numRows = getNumRows() + 1;
@@ -213,6 +214,7 @@ function deleteHandler(id) {
         .transition(t)
         .remove();
     heatMap();
+    updateRunsSummary();
     createPage(getStartRow(), getEndRow());
 }
 
